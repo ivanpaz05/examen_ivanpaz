@@ -7,21 +7,18 @@ import { ObjectId } from "mongodb";
 
 
 
-export const createTrainer = async (name: string, password: string) => {
+export const createUser = async (email: string, password: string) => {
     const db = getDB();
-
-    const exists = await db.collection(COLLECTION_TRAINERS).findOne({name});
-    if(exists) throw new Error("Trainer name already exists");
-
     const toEncriptao = await bcrypt.hash(password, 10);
 
     const result = await db.collection(COLLECTION_TRAINERS).insertOne({
-        name,
+        email,
         password: toEncriptao
     });
 
     return result.insertedId.toString();
 };
+
 
 export const validateTrainer = async (name: string, password: string) => {
     const db = getDB();

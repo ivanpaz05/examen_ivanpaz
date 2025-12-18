@@ -1,8 +1,6 @@
 import { ObjectId } from "mongodb";
 import { getDB } from "../db/mongo"
 import { COLLECTION_POKEMONS, COLLECTION_TRAINERS } from "../utils";
-import { createOwnedPokemon, deleteOwnedPokemon } from "./ownedPokemons";
-
 
 
 
@@ -74,7 +72,7 @@ export const freePokemon = async (ownedPokemonId: string, trainerId: string) => 
 
     const team = trainer.pokemons || [];
     if(!team.includes(ownedPokemonId)) throw new Error(
-        "You can only free your own pokemons"
+    "You can only free your own pokemons"
     );
 
     await deleteOwnedPokemon(ownedPokemonId);
